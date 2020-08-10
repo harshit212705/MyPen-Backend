@@ -1,0 +1,106 @@
+                             Assignment-1
+
+Q1. Write a C program to check if a given string is keyword or not.
+
+     #include<stdio.h>
+     #include<stdlib.h>
+     #include<string.h>
+     #include<ctype.h>
+
+     int isKeyword(char buffer[]){
+         int i, flag = 0;
+         for(i = 0; i < 32; ++i){
+            if(strcmp(keywords[i], buffer) == 0){
+                 flag = 1;
+                 break;
+            }
+         }
+         return flag;
+     }
+
+     int main(){
+        FILE *fp;
+        char ch, buffer[100000];
+
+        int i,j=0;
+        fp = fopen(\"2.c\",\"r\");
+
+        if(fp == NULL){
+            printf(\"error while opening the file\
+\");
+            exit(0);
+        }
+
+        while((ch = fgetc(fp)) != EOF){
+
+            if(isalnum(ch)){
+                buffer[j++] = ch;
+            }
+            else if((ch == ' ' || ch == '\
+') && (j != 0)){
+                buffer[j] = '\\0';
+                j = 0;
+            if(isKeyword(buffer) == 1)
+                printf(\"%s is keyword\
+\", buffer);
+            }
+        }
+        fclose(fp);
+        return 0;
+    }
+
+
+
+
+
+Q2. Write a C program to detect tokens in a C program.
+    #include<stdio.h>
+    #include<stdlib.h>
+    #include<string.h>
+    #include<ctype.h>
+
+    int isKeyword(char buffer[]){
+        int i, flag = 0;
+        for(i = 0; i < 32; ++i){
+            if(strcmp(keywords[i], buffer) == 0){
+                flag = 1;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    int main(){
+        char ch, buffer[100000], operators[] = \"+-*/%=\";
+        FILE *fp;
+
+        int i,j=0;
+        fp = fopen(\"1.c\",\"r\");
+
+        if(fp == NULL){
+            printf(\"error while opening the file\
+\");
+            exit(0);
+        }
+
+        while((ch = fgetc(fp)) != EOF){
+            for(i = 0; i < 6; ++i){
+                if(ch == operators[i])
+                    printf(\"%c is operator\
+\", ch);
+            }
+            if(isalnum(ch)){
+                buffer[j++] = ch;
+            }
+            else if((ch == ' ' || ch == '\
+') && (j != 0)){
+                buffer[j] = '\\0';
+                j = 0;
+            if(isKeyword(buffer) == 1)
+                printf(\"%s is keyword\
+\", buffer);
+            }
+        }
+        fclose(fp);
+        return 0;
+    }
